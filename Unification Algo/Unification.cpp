@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 	string input(argv[1]);
 	//string input = argv[1];  // both are same
 	
-  cout<<"...checking input syntax " <<endl;
+        cout<<"...checking input syntax " <<endl;
 	if(!check_input(input))                     //check the input term syntaxically
 	{	return -1;}
 	cout<<"...finding terms " << endl;
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 	cout<<"Type(term1) = " <<first_type<<" Type(term2) = "<<second_type<<endl;
 	if (first_type == 1 and second_type == 1 and first_term != second_term)
 	{	
-    cout<<'\t' << second_term <<" = "<< first_term << endl;     //print the list of substitution if any
+        cout<<'\t' << second_term <<" = "<< first_term << endl;     //print the list of substitution if any
 		cout << "\tyes"<<endl;
 		return 0;
 	}
@@ -78,15 +78,15 @@ int main(int argc, char* argv[])
 			size_t pos = 0;
 			while((pos = first_term.find(s, pos)) != std::string::npos) 	//If "from" found in term1
 			{
-        first_term.replace(pos, s.length(), to); //replace it with "to"
-        pos += to.length();		// Handles case where 'to' is a substring of 'from'
-    	}
+        		first_term.replace(pos, s.length(), to); //replace it with "to"
+        		pos += to.length();		// Handles case where 'to' is a substring of 'from'
+    		}
 			pos = 0;
-      while((pos = second_term.find(s, pos)) != std::string::npos)	//If "from" found in term2
-      {
-        second_term.replace(pos, s.length(), to);		//replace it with "to"
-        pos += to.length();		// Handles case where 'to' is a substring of 'from'
-      }
+            while((pos = second_term.find(s, pos)) != std::string::npos)	//If "from" found in term2
+            {
+                second_term.replace(pos, s.length(), to);		//replace it with "to"
+                pos += to.length();		// Handles case where 'to' is a substring of 'from'
+            }
 			/*//if (first_term.find(s) != std::string::npos)
 			//	first_term.replace(first_term.find(s), s.length(), replacable.begin()->second);
 			//if (second_term.find(s) != std::string::npos)
@@ -129,7 +129,7 @@ bool check_input(string ip)
 			brackets --;
 
 		if (ip[i] != ')' && character == ip.length())
-      valid = false;
+            valid = false;
 		character++;
 	}
 	if (brackets != 0)		//if number of brackets do not match, return error
@@ -144,68 +144,68 @@ bool find_two_terms(string ip)		//This function looks for two terms
 	int cnt = 0;
 	bool found = false;
 	int brackets = 0;
-  while( cnt != ip.length() && found == false)
-  {
-    pos+=1;
+    while( cnt != ip.length() && found == false)
+    {
+        pos+=1;
 		brackets = 0;
-    pos = ip.find(",", pos);	//looks for comma and then finds substring 
-    if ( pos == std::string::npos )
-    {	valid = false;
+        pos = ip.find(",", pos);	//looks for comma and then finds substring 
+        if ( pos == std::string::npos )
+        {	valid = false;
 			return valid;}
 		first_term = ip.substr(0,pos);
 		second_term = ip.substr(pos+1);
 		for (int i = 0; i<first_term.length(); i++)	 //checks for the number of brackets
 		{
 			if(first_term[i] == '(')
-			brackets ++;
-      else if (first_term[i] == ')')
-		  brackets --;
+				brackets ++;
+            else if (first_term[i] == ')')
+				brackets --;
 		}
 		if (brackets != 0)
 			continue;
 		else
 			found = true;
-    cnt++;
-  }
-  return valid;
+        	cnt++;
+    }
+    return valid;
 }	
 
 bool check_for_more_terms(string second_term)
 {
 	size_t  pos = 0;
-  int cnt = 0;
-  bool found = false;
-  int brackets = 0;
+    int cnt = 0;
+    bool found = false;
+    int brackets = 0;
 	bool ifFirst = 1;
-  string second_trm = "", next_trm = "";
-  while( cnt != second_term.length() && found == false)
-  {
+    string second_trm = "", next_trm = "";
+    while( cnt != second_term.length() && found == false)
+    {
 		pos+=1;
-    brackets = 0;
-    pos = second_term.find(",", pos);	//divides the second term based on comma and brackets
-    if ( pos == std::string::npos && ifFirst)
+        brackets = 0;
+        pos = second_term.find(",", pos);	//divides the second term based on comma and brackets
+        if ( pos == std::string::npos && ifFirst)
 			return valid;
-    else
+        else
 		{
-      ifFirst = false;
+            ifFirst = false;
 			if ( pos == std::string::npos)
 			{	valid = true; return valid;}
 			second_trm = second_term.substr(0,pos);
-      next_trm = second_term.substr(pos+1);
-      for (int i = 0; i<second_term.length(); i++)
-      {
+            next_trm = second_term.substr(pos+1);
+            for (int i = 0; i<second_term.length(); i++)
+            {
 				if(second_trm[i] == '(')
 					brackets ++;
-        else if (second_trm[i] == ')')
-          brackets --;
-      }
-      if (brackets != 0)
-        continue;
-      else
+                else if (second_trm[i] == ')')
+                    brackets --;
+            }
+            if (brackets != 0)
+                continue;
+            else
 				found = true;
 		}
-    cnt++;
-  }
+        cnt++;
+    }
 	if (! next_trm.empty())		//If next_term is not empty, it means input has more than 2 terms
 		valid = false;
 
@@ -346,30 +346,30 @@ int process_unification(string term1, string term2)		//implementation of unifica
 				if (term1 == term2)
 					return 2; //return "true"
 				else     //if term 1 is variable and term2 is also a variable 
-        {
+        		{
 					replacable.insert(pair<string,string>(term1,term2));   //add substitution
-          if (!replaced.empty())
+                    if (!replaced.empty())
 						call_substitute(replaced,replacable);
-          replaced.insert(pair<string,string>(term1,term2));
-          return 1; //to replace the value of variable with fucntion
+                    replaced.insert(pair<string,string>(term1,term2));
+                    return 1; //to replace the value of variable with fucntion
 				}
 			}
 			else    //if term 1 is variable and term2 is constant
 			{
 				replacable.insert(pair<string,string>(term1,term2));   //add substitution
-        if (!replaced.empty())
+                if (!replaced.empty())
 					call_substitute(replaced,replacable);
-        replaced.insert(pair<string,string>(term1,term2));
-        return 1; //to replace the value of variable with fucntion
+                replaced.insert(pair<string,string>(term1,term2));
+                return 1; //to replace the value of variable with fucntion
 			}
 		}
 		else   	//if term2 is variable and term 1 is constant
 		{
 			replacable.insert(pair<string,string>(term2,term1));   //add substitution
-      if (!replaced.empty())
+            if (!replaced.empty())
 				call_substitute(replaced,replacable);
-      replaced.insert(pair<string,string>(term2,term1));
-      return 1; //to replace the value of variable with fucntion
+            replaced.insert(pair<string,string>(term2,term1));
+            return 1; //to replace the value of variable with fucntion
 		}
 	}
 }	 //end of unification algo implementation
@@ -405,14 +405,14 @@ void call_substitute(map<string,string> &replaced, map<string,string> &replacabl
 	map<string, string>::iterator itr;
 	for (itr = replaced.begin(); itr != replaced.end(); ++itr) 
 	{ 
-    string s = replacable.begin()->first;
+        string s = replacable.begin()->first;
 		string s1 = itr->second;
 		if (s1.find(s) != std::string::npos)	//if replacable term found in final map, update it with new substitution
 		{
 			s1.replace(s1.find(s), s.length(), replacable.begin()->second);
 			itr->second = s1;
 		} 
-  } 	
+    } 	
 }
 
 string check_functionName(string term)		//finds the function name
@@ -446,7 +446,7 @@ vector<string> getargument(string term)		//get the list of arguemnts
 {
 	vector<string> arguments;
 	size_t pos = term.find("(");
-  string actualArgs = term.substr(pos+1,(term.length()-pos-2));
+    string actualArgs = term.substr(pos+1,(term.length()-pos-2));
 	string substring = "";
 	int bracket = 0, comma =0;
 	for(int i = 0; i<actualArgs.length(); i++)
@@ -458,7 +458,7 @@ vector<string> getargument(string term)		//get the list of arguemnts
 			substring = "";
 		}
 		else
-      substring = substring + actualArgs[i];				
+            substring = substring + actualArgs[i];				
 
 		if(actualArgs[i] == '(')
 			bracket++;
