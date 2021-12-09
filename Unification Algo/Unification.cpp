@@ -2,7 +2,7 @@
 *Name: Suby Singh
 *Description: This is a C++ program file containing code related to Unification algorithm implementation
 *
-*Compile: "g++ assign1ssz389.cpp -o assign1ssz389"
+*Compile: "g++ Unification.cpp -o Unification"
 *Sample run: "assign1ssz389 "f(f(X,Y),X),f(f(V,U),g(U,Y))""   --- provide both the terms inside double quotes with a comma in between as shown in sample run.
 *
 *
